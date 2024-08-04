@@ -16,7 +16,6 @@ const protectRoute = async (req, res, next) => {
     }
 
     const user = await User.findById(decoded.userId);
-
     req.user = user;
 
     next();
