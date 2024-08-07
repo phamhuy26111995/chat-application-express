@@ -15,8 +15,6 @@ const PORT = process.env.PORT || 5000;
 dotenv.config();
 const __dirname = path.resolve();
 
-console.log("dirname", __dirname);
-
 app.get("/health-check", (req, res) => {
   // root route http://localhost:3000/
   res.send("Hello World test!");
