@@ -42,6 +42,20 @@ export async function sendFriendRequest(req, res) {
   }
 }
 
+// delete friend request
+export async function deleteFriend(req, res) {
+  try {
+    const { friendId } = req.body;
+
+    User.unfriend(req.user._id, friendId);
+    
+    res.status(200).json({ message: "Friend request deleted" });
+  } catch (error) {
+    console.log("Error in deleting friend request", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
 export async function responseFriendRequest(req, res) {
   try {
     const { requestId, response } = req.body;
