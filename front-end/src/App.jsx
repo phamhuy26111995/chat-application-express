@@ -6,13 +6,13 @@ import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext.jsx";
 import { useState } from "react";
 import Modal from "./components/modal/Modal";
+import useModal from "./zustand/useModal";
 
 function App() {
   const { authUser } = useAuthContext();
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const { modalContent, isOpenModal, setIsOpenModal } = useModal();
+
   return (
     <div className="p-4 h-screen flex items-center justify-center">
       <Routes>
@@ -31,17 +31,12 @@ function App() {
       </Routes>
       <Toaster />
       <Modal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        title="Chào mừng đến với Modal!"
+        isOpen={isOpenModal}
+        onClose={() => setIsOpenModal(false)}
+        title={modalContent.title}
       >
-        <p>
-          Đây là nội dung của modal. Bạn có thể thêm bất kỳ React component nào
-          vào đây.
-        </p>
+        {modalContent.content}
       </Modal>
-	  <button className="btn" onClick={openModal}>Mở Modal</button>
-    
     </div>
   );
 }

@@ -3,9 +3,10 @@ import { getRandomEmoji } from "../../utils/emojis";
 import Conversation from "./Conversation";
 
 const Conversations = () => {
-	const { loading, conversations } = useGetConversations();
+	const { loading, conversations } = useGetConversations(false);
 	return (
 		<div className='py-2 flex flex-col overflow-auto'>
+			<div className='text-2xl font-bold -translate-y-3'>Bạn Bè</div>
 			{conversations.map((conversation, idx) => (
 				<Conversation
 					key={conversation._id}

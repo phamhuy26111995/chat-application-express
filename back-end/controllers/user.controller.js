@@ -138,7 +138,8 @@ export async function getFriends(req, res) {
 export async function getNonFriends(req, res) {
   try {
     // Get the current user's friends list
-    const currentUser = await User.findById(req.user._id).populate('friends');
+    const currentUser = await User.findById(req.user._id)
+    .populate('friends')
 
     if (!currentUser) {
       return res.status(404).json({ error: "User not found" });
@@ -149,7 +150,7 @@ export async function getNonFriends(req, res) {
     // Find all users who are not in the current user's friends list
     const nonFriends = await User.find({ 
       _id: { $nin: friendIds, $ne: req.user._id }
-    }).select('-password'); // Exclude password field from the result
+    }).select('-password').populate('friendRequests'); // Exclude password field from the result\\
 
     res.status(200).json(nonFriends);
   } catch (error) {
@@ -157,3 +158,5 @@ export async function getNonFriends(req, res) {
     res.status(500).json({ error: "Internal server error" });
   }
 }
+
+
